@@ -1,6 +1,6 @@
-## Prepare on-prem infrastructure 
+# Prepare on-prem infrastructure 
 
-We will use 3 servers in this demo:
+Note: We will use 3 servers for this demo:
 
 - devops (gitlab install) : 192.168.1.99
 - k8s-staging: 192.168.1.100 
@@ -13,29 +13,31 @@ We will use 3 servers in this demo:
 $ ansible-playbook -i ./inventory.ini gitlab.yml
 ```
 
-### Run gitlab-executor (docker-based)
+### gitlab-runner setup (docker-based)
 
 ```
 # curl -LJO "https://gitlab-runner-downloads.s3.amazonaws.com/latest/deb/gitlab-runner_amd64.deb"
 # dpkg -i gitlab-runner_amd64.deb
 # cp gitlab-runner/config.toml /etc/gitlab-runner/config.toml 
-# systemctl restart gitlab-runner
-   
+# systemctl restart gitlab-runner  
 ```   
-## Install k8s on k8s servers and setup
+## Install k8s on k8s servers and setup namespaces and GitLab credentials:
   
-### k8s 
+Note: we will use k3s. k3s is 40MB binary that runs “a fully compliant production-grade Kubernetes distribution” and requires only 512MB of RAM. k3s is a great way to wrap applications that you may not want to run in a full production Cluster but would like to achieve greater uniformity in systems deployment, monitoring, and management across all development operations. 
 
 ```
-### Staging example 
+### Staging Example 
 $ curl -sfL https://get.k3s.io | sh -
 $ sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/k8s-staging
 $ sudo chmod 755 ~/.kube/k8s-staging
 $ sed -i "s/127.0.0.1/192.168.1.100/"  ~/.kube/k8s-staging
 $ export KUBECONFIG=~/.kube/k8s-staging
 $ kubectl cluster-info
+Kubernetes control plane is running at https://192.168.1.100:6443
+Metrics-server is running at https://192.168.1.100:6443/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy
+CoreDNS is running at https://192.168.1.100:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
-### Create k8s namespace and setup GitLab registry credentials for k8s
+### Create k8s namespace and setup GitLab registry credentials 
 $ kubectl create namespace staging
 
 $ echo -n "root:U1AFmqZzOipO660SQgVKKrDS9qvkwsVouANA6mLXkiY=" | base64
@@ -70,7 +72,7 @@ $ kubectl create -f registry-credentials.yml
 secret/registry-credentials created
 
 ```
-### Create Gitlab project and push endurosat-cicd folder and create Gitlab CI/CD variables for this repo 
+### Create Gitlab project and push endurosat-cicd folder to GitLab repo,create Gitlab CI/CD variables and .gitlab-ci.yml pipeline file:
 
 Screenshots: 
 
@@ -105,6 +107,22 @@ Pipeline state -> staging deploy:
 Pipeline state -> production deploy:
 
 <img src="./pictures/endurosat-state-production-deploy.png?raw=true" width="900">
+
+
+Check deplpyment (staging k8s example):
+
+```
+
+$ kubectl get deployment -n staging
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+endurosat-cicd   1/1     1            1           38h
+
+$ kubectl get po -n staging
+NAME                              READY   STATUS    RESTARTS   AGE
+endurosat-cicd-6f8fd6596b-jw2js   1/1     Running   0          38h
+
+```
+
 
 
 
