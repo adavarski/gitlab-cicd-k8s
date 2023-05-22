@@ -27,7 +27,7 @@ $ ansible-playbook -i ./inventory.ini gitlab.yml
 Note: we will use k3s. k3s is 40MB binary that runs “a fully compliant production-grade Kubernetes distribution” and requires only 512MB of RAM. k3s is a great way to wrap applications that you may not want to run in a full production Cluster but would like to achieve greater uniformity in systems deployment, monitoring, and management across all development operations. 
 
 ```
-### Staging Example 
+### Staging k8s example 
 $ curl -sfL https://get.k3s.io | sh -
 $ sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/k8s-staging
 $ sudo chmod 755 ~/.kube/k8s-staging
@@ -73,11 +73,11 @@ $ kubectl create -f registry-credentials.yml
 secret/registry-credentials created
 
 ```
-## Create Gitlab project and push endurosat-cicd folder to GitLab repo, setup Gitlab CI/CD pipeline variables and create .gitlab-ci.yml pipeline file:
+## Create Gitlab project and push endurosat-cicd folder to GitLab endurosat-cicd repo, setup Gitlab CI/CD pipeline variables and create .gitlab-ci.yml file:
 
 - Create a new repository (GitLab).
 - Create a simple web application and a Dockerfile to containerize the web application.
-- Create/Configure the GitLab pipeline to listen to the repository for changes, and trigger a pipeline when a new commit is made: Build the Docker image -> Run automated tests -> Push it to GitLab registry -> Deploy the Docker container to a Staging&Production environments.
+- Create/Configure the GitLab pipeline to listen to the repository for changes, and trigger a pipeline when a new commit is made: Build the Docker image -> Run automated tests -> Push it to GitLab registry -> Deploy the Docker container to Staging&Production environments.
 
 Screenshots: 
 
@@ -114,7 +114,7 @@ Pipeline state -> production deploy:
 <img src="./pictures/endurosat-state-production-deploy.png?raw=true" width="900">
 
 
-### Check deplpyment (staging k8s example):
+### Check k8s deployment (staging k8s example):
 
 ```
 
