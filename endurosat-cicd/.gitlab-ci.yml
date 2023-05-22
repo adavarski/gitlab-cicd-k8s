@@ -10,9 +10,6 @@ build_image:
   only:
     - main
   script:
-    - echo "$CI_REGISTRY"
-    - echo "$CI_REGISTRY_USER"
-    - echo "$CI_REGISTRY_PASSWORD"
     - docker build -t $CI_REGISTRY_IMAGE:latest .
 
 test_image:
