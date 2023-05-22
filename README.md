@@ -85,7 +85,7 @@ Repo:
 
 <img src="./pictures/endurosat-gitlab-repo.png?raw=true" width="900">
 
-Variables(K8S_STAGING=~/.kube/k8s-staging):
+Variables(K8S_STAGING= cat ~/.kube/k8s-staging & K8S_PRODUCTION= cat ~/.kube/k8s-production):
 
 <img src="./pictures/endurosat-gitlab-pipilene-variables.png?raw=true" width="900">
 
@@ -97,7 +97,7 @@ Pipeline state -> build docker image:
 
 <img src="./pictures/endurosat-state-build.png?raw=true" width="900">
 
-Pipeline state -> test: 
+Pipeline state -> tests: 
 
 <img src="./pictures/endurosat-state-test.png?raw=true" width="900">
 
@@ -117,7 +117,6 @@ Pipeline state -> production deploy:
 ### Check k8s deployment (staging k8s example):
 
 ```
-
 $ kubectl get deployment -n staging
 NAME             READY   UP-TO-DATE   AVAILABLE   AGE
 endurosat-cicd   1/1     1            1           38h
@@ -125,7 +124,6 @@ endurosat-cicd   1/1     1            1           38h
 $ kubectl get po -n staging
 NAME                              READY   STATUS    RESTARTS   AGE
 endurosat-cicd-6f8fd6596b-jw2js   1/1     Running   0          38h
-
 ```
 
 
