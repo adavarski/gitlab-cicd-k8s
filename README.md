@@ -101,9 +101,9 @@ Pipeline state -> test:
 
 <img src="./pictures/endurosat-state-test.png?raw=true" width="900">
 
-Pipeline state -> push docker image to GitLab repo:
+Pipeline state -> push docker image to GitLab registry:
 
-<img src="./pictures/endurosat-state-push.pngg?raw=true" width="900">
+<img src="./pictures/endurosat-state-push.png?raw=true" width="900">
 
 Pipeline state -> staging deploy:
 
