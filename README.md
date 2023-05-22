@@ -72,7 +72,18 @@ secret/registry-credentials created
 
 Screenshots: 
 
+
+<img src="./pictures/endurosat-gitlab-repo.png?raw=true" width="800">
+
 <img src="./pictures/endurosat-gitlab-pipilene-variables.png?raw=true" width="800">
+
+<img src="./pictures/endurosat-gitlab-pipeline-summary.png?raw=true" width="800">
+
+<img src="./pictures/endurosat-state-staging-deploy.png?raw=true" width="800">
+
+<img src="./pictures/endurosat-state-production-deploy.png?raw=true" width="800">
+
+
 
 
 
