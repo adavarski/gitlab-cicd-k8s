@@ -1,0 +1,51 @@
+stages:
+  - build
+  - test
+  - push
+  - deploy_staging
+  - deploy_production
+
+build_image:
+  stage: build
+  only:
+    - main
+  script:
+    - echo "$CI_REGISTRY"
+    - echo "$CI_REGISTRY_USER"
+    - echo "$CI_REGISTRY_PASSWORD"
+    - docker build -t $CI_REGISTRY_IMAGE:latest .
+
+test_image:
+  stage: test
+  image: $CI_REGISTRY_IMAGE:latest
+  script:
+    - python -m pip install --upgrade pip
+    - pip install -r requirements.txt
+    - python -m pytest tests/
+
+push_image:
+  stage: push
+  only:
+    - main
+  script:
+    - echo "$CI_REGISTRY"
+    - echo "$CI_REGISTRY_USER"
+    - echo "$CI_REGISTRY_PASSWORD"
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker push $CI_REGISTRY_IMAGE:latest
+
+staging_k8s_deploy:
+  stage: deploy_staging
+  script:
+    - wget -q https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl && chmod 755 /usr/local/bin/kubectl
+    - mkdir -p /etc/k8s/
+    - echo "$K8S_STAGING" > /etc/k8s/k8s-staging
+    - kubectl --kubeconfig /etc/k8s/k8s-staging apply -f endurosat-cicd.yaml -n staging 
+
+production_k8s_deploy:
+  stage: deploy_production
+  script:
+    - wget -q https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl && chmod 755 /usr/local/bin/kubectl
+    - mkdir -p /etc/k8s/
+    - echo "$K8S_PRODUCTION" > /etc/k8s/k8s-production
+    - kubectl --kubeconfig /etc/k8s/k8s-production apply -f endurosat-cicd.yaml -n production 
