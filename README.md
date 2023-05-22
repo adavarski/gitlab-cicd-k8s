@@ -73,27 +73,35 @@ secret/registry-credentials created
 Screenshots: 
 
 Repo:
+
 <img src="./pictures/endurosat-gitlab-repo.png?raw=true" width="900">
 
 Variables(K8S_STAGING=~/.kube/k8s-staging):
+
 <img src="./pictures/endurosat-gitlab-pipilene-variables.png?raw=true" width="900">
 
 Pipeline Run:
+
 <img src="./pictures/endurosat-gitlab-pipeline-summary.png?raw=true" width="900">
 
 Pipeline state -> build docker image:
+
 <img src="./pictures/endurosat-state-build.png?raw=true" width="900">
 
 Pipeline state -> test: 
+
 <img src="./pictures/endurosat-state-test.png?raw=true" width="900">
 
 Pipeline state -> push docker image to GitLab repo:
+
 <img src="./pictures/endurosat-state-push.pngg?raw=true" width="900">
 
 Pipeline state -> staging deploy:
+
 <img src="./pictures/endurosat-state-staging-deploy.png?raw=true" width="900">
 
 Pipeline state -> production deploy:
+
 <img src="./pictures/endurosat-state-production-deploy.png?raw=true" width="900">
 
 
