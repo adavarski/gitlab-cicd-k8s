@@ -1,8 +1,8 @@
 We will use 3 servers in this demo:
 
-devops (gitlab install) : 192.168.1.99
-k8s-staging: 192.168.1.100 
-k8s-production: 192.168.1.101
+- devops (gitlab install) : 192.168.1.99
+- k8s-staging: 192.168.1.100 
+- k8s-production: 192.168.1.101
 
 
 ## Gitlab server install via ansible (devops server)
@@ -20,10 +20,12 @@ $ ansible-playbook -i ./inventory.ini gitlab.yml
 # systemctl restart gitlab-runner
    
 ```   
-### Install k8s on k8s servers and setup
+## Install k8s on k8s servers and setup
   
-```
-## k8s Staging example
+### k8s 
+
+````
+### Staging example 
 $ curl -sfL https://get.k3s.io | sh -
 $ sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/k8s-staging
 $ sudo chmod 755 ~/.kube/k8s-staging
@@ -31,10 +33,8 @@ $ sed -i "s/127.0.0.1/192.168.1.100/"  ~/.kube/k8s-staging
 $ export KUBECONFIG=~/.kube/k8s-staging
 $ kubectl cluster-info
 
-### Create k8s namespace
+### Create k8s namespace and setup GitLab registry credentials for k8s
 $ kubectl create namespace staging
-
-### Setup GitLab registry credentials for k8s
 
 $ echo -n "root:U1AFmqZzOipO660SQgVKKrDS9qvkwsVouANA6mLXkiY=" | base64
 cm9vdDpVMUFGbXFaek9pcE82NjBTUWdWS0tyRFM5cXZrd3NWb3VBTkE2bUxYa2lZPQ==
@@ -69,6 +69,10 @@ secret/registry-credentials created
 
 ```
 ### Create Gitlab project and push endurosat-cicd folder and create Gitlab CI/CD variables for this repo 
+
+Screenshots: 
+
+<img src="./pictures/endurosat-gitlab-pipilene-variables.png?raw=true" width="800">
 
 
 
