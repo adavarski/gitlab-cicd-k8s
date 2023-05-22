@@ -21,7 +21,7 @@ $ ansible-playbook -i ./inventory.ini gitlab.yml
 # cp gitlab-runner/config.toml /etc/gitlab-runner/config.toml 
 # systemctl restart gitlab-runner  
 ```   
-## Install k8s on k8s servers and setup namespaces and GitLab credentials:
+## Install k8s on k8s servers and setup namespaces and GitLab credentials
   
 Note: we will use k3s. k3s is 40MB binary that runs “a fully compliant production-grade Kubernetes distribution” and requires only 512MB of RAM. k3s is a great way to wrap applications that you may not want to run in a full production Cluster but would like to achieve greater uniformity in systems deployment, monitoring, and management across all development operations. 
 
@@ -72,7 +72,7 @@ $ kubectl create -f registry-credentials.yml
 secret/registry-credentials created
 
 ```
-### Create Gitlab project and push endurosat-cicd folder to GitLab repo,create Gitlab CI/CD variables and .gitlab-ci.yml pipeline file:
+## Create Gitlab project and push endurosat-cicd folder to GitLab repo, create Gitlab CI/CD variables and .gitlab-ci.yml pipeline file:
 
 Screenshots: 
 
@@ -109,7 +109,7 @@ Pipeline state -> production deploy:
 <img src="./pictures/endurosat-state-production-deploy.png?raw=true" width="900">
 
 
-Check deplpyment (staging k8s example):
+### Check deplpyment (staging k8s example):
 
 ```
 
