@@ -24,7 +24,7 @@ $ ansible-playbook -i ./inventory.ini gitlab.yml
 ```   
 ## Install k8s on k8s servers and setup namespaces and GitLab credentials
   
-Note: we will use k3s. k3s is 40MB binary that runs “a fully compliant production-grade Kubernetes distribution” and requires only 512MB of RAM. k3s is a great way to wrap applications that you may not want to run in a full production k8s cluster but would like to achieve greater uniformity in systems deployment, monitoring, and management across all development operations. 
+Note: We will use k3s. k3s is 40MB binary that runs “a fully compliant production-grade Kubernetes distribution” and requires only 512MB of RAM. k3s is a great way to wrap applications that you may not want to run in a full production k8s cluster but would like to achieve greater uniformity in systems deployment, monitoring, and management across all development operations. 
 
 ```
 ### Staging k8s example 
