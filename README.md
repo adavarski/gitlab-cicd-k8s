@@ -24,7 +24,7 @@ $ ansible-playbook -i ./inventory.ini gitlab.yml
   
 ### k8s 
 
-````
+```
 ### Staging example 
 $ curl -sfL https://get.k3s.io | sh -
 $ sudo cp /etc/rancher/k3s/k3s.yaml ~/.kube/k8s-staging
