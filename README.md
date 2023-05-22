@@ -1,3 +1,4 @@
+
 # Prepare on-prem infrastructure 
 
 Note: We will use 3 servers for this demo:
@@ -72,7 +73,11 @@ $ kubectl create -f registry-credentials.yml
 secret/registry-credentials created
 
 ```
-## Create Gitlab project and push endurosat-cicd folder to GitLab repo, create Gitlab CI/CD variables and .gitlab-ci.yml pipeline file:
+## Create Gitlab project and push endurosat-cicd folder to GitLab repo, setup Gitlab CI/CD pipeline variables and create .gitlab-ci.yml pipeline file:
+
+- Create a new repository (GitLab).
+- Create a simple web application and a Dockerfile to containerize the web application.
+- Create/Configure the GitLab pipeline to listen to the repository for changes, and trigger a pipeline when a new commit is made: Build the Docker image -> Run automated tests -> Push it to GitLab registry -> Deploy the Docker container to a Staging&Production environments.
 
 Screenshots: 
 
