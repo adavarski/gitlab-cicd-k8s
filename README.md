@@ -38,6 +38,25 @@ Kubernetes control plane is running at https://192.168.1.100:6443
 Metrics-server is running at https://192.168.1.100:6443/api/v1/namespaces/kube-system/services/https:metrics-server:https/proxy
 CoreDNS is running at https://192.168.1.100:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
+# cat registries.yaml 
+mirrors:
+  docker.io:
+    endpoint:
+      - "https://gitlab.devops.davar.com:2053"
+configs:
+  "gitlab.devops.davar.com:2053":
+    auth:
+      username: root 
+      password: U1AFmqZzOipO660SQgVKKrDS9qvkwsVouANA6mLXkiY=
+    tls:
+      insecure_skip_verify: yes
+      cert_file: /etc/gitlab/ssl/gitlab.devops.davar.com.crt
+      key_file: /etc/gitlab/ssl/gitlab.devops.davar.com.key
+      
+$ sudo systemctl restart k3s      
+
+Note: tls: insecure_skip_verify: yes to get images from GitLab docker registry (self-signed SSL certs)
+
 ### Create k8s namespace and setup GitLab registry credentials 
 $ kubectl create namespace staging
 
